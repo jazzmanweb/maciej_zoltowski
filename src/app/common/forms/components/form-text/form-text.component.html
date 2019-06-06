@@ -1,0 +1,19 @@
+<div class="form-group"
+     [formGroup]="form"
+>
+    <label [for]="field">
+        {{label}}
+        <small *ngIf="required">*</small>
+    </label>
+    <input type="text"
+           [id]="field"
+           [formControlName]="field"
+           class="form-control"
+           [class.is-invalid]="form?.get(field)?.errors"
+           aria-describedby="characterN"
+           [placeholder]="placeholder"
+    >
+    <div *ngIf="form?.get(field)?.errors" class="is-invalid">
+        <div *ngIf="form?.get(field)?.errors.required">This field is required.</div>
+    </div>
+</div>
