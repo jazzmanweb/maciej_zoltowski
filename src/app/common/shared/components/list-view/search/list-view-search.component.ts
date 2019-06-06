@@ -17,7 +17,7 @@ export class ListViewSearchComponent implements OnInit, OnDestroy {
         this.formControl = new FormControl('');
         this.formControl.valueChanges
             .pipe(
-                debounceTime(300),
+                debounceTime(200),
                 takeWhile(() => this.subscribe),
             )
             .subscribe((querySearch: string) => {
