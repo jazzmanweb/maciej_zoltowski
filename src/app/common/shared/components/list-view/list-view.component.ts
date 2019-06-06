@@ -6,8 +6,9 @@ import {ListViewInterface} from '../../model/interfaces/list-view.interface';
     templateUrl: './list-view.component.html',
     styleUrls: ['./list-view.component.scss']
 })
-export class ListViewComponent implements OnInit {
+export class ListViewComponent<T = any[]> implements OnInit {
     @Input() public columns: ListViewInterface[];
+    @Input() public data: T[] = [];
 
     constructor() {
     }
