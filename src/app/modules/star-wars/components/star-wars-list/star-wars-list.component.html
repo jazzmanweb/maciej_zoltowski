@@ -6,4 +6,7 @@
     [pagination]="pagination$ | async"
     (onSearch)="handleSearch($event)"
     (onPaginate)="handlePaginate($event)"
+    (onCreate)="handleCreate()"
+    (onEdit)="handleEdit($event)"
+    (onRemove)="handleRemove($event)"
 ></sl-list-view>

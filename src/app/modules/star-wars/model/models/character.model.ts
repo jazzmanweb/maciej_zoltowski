@@ -2,6 +2,7 @@ import {CharacterInterface} from '../interfaces/character.interface';
 import {GenderEnum} from '../enums/gender.enum';
 
 export class CharacterModel implements Required<CharacterInterface> {
+    public id: number;
     public name: string;
     public species: string;
     public gender: GenderEnum;
@@ -9,6 +10,7 @@ export class CharacterModel implements Required<CharacterInterface> {
 
     constructor(options?: CharacterInterface) {
         options = options || {};
+        this.id = options.id || null;
         this.name = options.name || null;
         this.species = options.species || null;
         this.gender = options.gender in GenderEnum ? options.gender : GenderEnum.NA;

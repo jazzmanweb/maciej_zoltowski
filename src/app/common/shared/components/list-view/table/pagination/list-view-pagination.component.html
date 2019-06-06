@@ -4,28 +4,28 @@
             [class.disabled]="pagination.isFirst"
             (click)="handlePrev()"
         >
-            <a class="page-link" href="#" tabindex="-1">Previous</a>
+            <button class="page-link" tabindex="-1">Previous</button>
         </li>
         <li class="page-item"
             *ngIf="!pagination.isFirst"
             (click)="handlePrev()"
         >
-            <a class="page-link" href="#">{{pagination.page - 1}}</a>
+            <button class="page-link">{{pagination.page - 1}}</button>
         </li>
         <li class="page-item active">
-            <a class="page-link" href="#">{{pagination.page}} <span class="sr-only">(current)</span></a>
+            <button class="page-link">{{pagination.page}} <span class="sr-only">(current)</span></button>
         </li>
         <li class="page-item"
             *ngIf="!pagination.isLast"
             (click)="handleNext()"
         >
-            <a class="page-link" href="#">{{pagination.page + 1}}</a>
+            <button class="page-link">{{pagination.page + 1}}</button>
         </li>
         <li class="page-item"
             [class.disabled]="pagination.isLast"
             (click)="handleNext()"
         >
-            <a class="page-link" href="#">Next</a>
+            <button class="page-link">Next</button>
         </li>
     </ul>
 </nav>
