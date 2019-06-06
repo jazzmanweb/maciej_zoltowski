@@ -30,4 +30,7 @@
     </tbody>
 </table>
 
-<sl-list-view-pagination></sl-list-view-pagination>
+<sl-list-view-pagination
+    [pagination]="pagination"
+    (onPaginate)="handlePaginate($event)"
+></sl-list-view-pagination>

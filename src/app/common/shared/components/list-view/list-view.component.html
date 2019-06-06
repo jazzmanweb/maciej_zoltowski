@@ -12,4 +12,6 @@
 <sl-list-view-table
     [columns]="columns"
     [data]="data"
+    [pagination]="pagination"
+    (onPaginate)="handlePaginate($event)"
 ></sl-list-view-table>

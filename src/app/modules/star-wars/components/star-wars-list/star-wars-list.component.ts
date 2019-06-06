@@ -3,7 +3,10 @@ import {ListViewInterface} from '../../../../common/shared/model/interfaces/list
 import {StarWarsService} from '../../store/star-wars.service';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {CharacterModel} from '../../model/models/character.model';
-import {switchMap} from 'rxjs/operators';
+import {map, switchMap} from 'rxjs/operators';
+import {HttpGetPaginationModel} from '../../../../common/http/model/models/http-get-pagination.model';
+import {combineLatest} from 'rxjs/internal/observable/combineLatest';
+import {PaginationModel} from '../../../../common/shared/model/models/pagination.model';
 
 @Component({
     selector: 'sl-star-wars-list',
@@ -11,9 +14,12 @@ import {switchMap} from 'rxjs/operators';
     styleUrls: ['./star-wars-list.component.scss']
 })
 export class StarWarsListComponent implements OnInit {
-    public columns: ListViewInterface[];
+    public columns: ListViewInterface<CharacterModel>[];
     public characters$: Observable<CharacterModel[]>;
+    public pagination$: Observable<PaginationModel>;
     public querySearch$: BehaviorSubject<string> = new BehaviorSubject('');
+    public page$: BehaviorSubject<number> = new BehaviorSubject(1);
+    private paginationLimit: number = 10;
 
     constructor(private service: StarWarsService) {
     }
@@ -21,17 +27,34 @@ export class StarWarsListComponent implements OnInit {
     public ngOnInit(): void {
         this.getColumns();
 
-        this.characters$ = this.getFilteredList$();
+        const listWithPage$: Observable<HttpGetPaginationModel<CharacterModel[]>> = this.getListWithPage();
+        this.characters$ = listWithPage$.pipe(map((listWithPage) => listWithPage.body));
+        this.pagination$ = combineLatest(
+            listWithPage$,
+            this.page$,
+        ).pipe(map(([listWithPage, page]) => new PaginationModel({
+            ...listWithPage,
+            page,
+            limit: this.paginationLimit,
+        })));
     }
 
     public handleSearch(querySearch: string) {
-        console.log(querySearch);
         this.querySearch$.next(querySearch);
     }
 
-    private getFilteredList$(): Observable<CharacterModel[]> {
-        return this.querySearch$.pipe(
-            switchMap((querySearch) => this.service.list(querySearch))
+    public handlePaginate(page: number) {
+        this.page$.next(page);
+    }
+
+    private getListWithPage(): Observable<HttpGetPaginationModel<CharacterModel[]>> {
+        return combineLatest(
+            this.querySearch$,
+            this.page$,
+        ).pipe(
+            switchMap(([querySearch, page]) => {
+                return this.service.list(querySearch, page, this.paginationLimit);
+            })
         );
     }
 
