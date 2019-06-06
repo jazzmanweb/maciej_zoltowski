@@ -4,6 +4,7 @@ import {Observable, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {removeFirstCharIfExist, removeLastCharIfExist} from '../../utils/string.utils';
 import {tap} from 'rxjs/internal/operators/tap';
+import {HttpGetRequestInterface} from '../model/interfaces/http-get-request.interface';
 
 @Injectable()
 export class RequestService {
@@ -17,9 +18,12 @@ export class RequestService {
                 @Inject('api') private api: string) {
     }
 
-    public get<T>(path): Observable<T> {
-        return this.http.jsonp<T>(this.getUrl(path), 'callback')
+    public get<T>(request: HttpGetRequestInterface): Observable<T> {
+        return this.http.get<T>(this.getUrl(request.path), {
+            params: request.params,
+        })
             .pipe(
+                tap(() => console.log(request.path)),
                 tap((x) => console.log(x)),
                 catchError(this.handleError)
             );

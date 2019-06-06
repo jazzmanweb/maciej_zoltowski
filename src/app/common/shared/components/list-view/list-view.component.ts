@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ListViewInterface} from '../../model/interfaces/list-view.interface';
 
 @Component({
@@ -9,10 +9,15 @@ import {ListViewInterface} from '../../model/interfaces/list-view.interface';
 export class ListViewComponent<T = any[]> implements OnInit {
     @Input() public columns: ListViewInterface[];
     @Input() public data: T[] = [];
+    @Output() public onSearch: EventEmitter<string> = new EventEmitter();
 
     constructor() {
     }
 
-    ngOnInit() {
+    public ngOnInit(): void {
+    }
+
+    public handleSearch(querySearch: string) {
+        this.onSearch.emit(querySearch);
     }
 }

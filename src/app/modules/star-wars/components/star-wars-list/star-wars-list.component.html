@@ -3,4 +3,5 @@
 <sl-list-view
     [columns]="columns"
     [data]="characters$ | async"
+    (onSearch)="handleSearch($event)"
 ></sl-list-view>

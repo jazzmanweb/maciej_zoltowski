@@ -11,10 +11,17 @@ export class StarWarsService {
     constructor(private request: RequestService) {
     }
 
-    public list(): Observable<CharacterModel[]> {
-        return this.request.get<CharacterInterface[]>(STAR_WARS.CHARACTERS.CRUD)
+    public list(querySearch?: string): Observable<CharacterModel[]> {
+        return this.request.get<CharacterInterface[]>({
+            path: STAR_WARS.CHARACTERS.CRUD,
+            params: this.getQuerySearchParams(querySearch),
+        })
             .pipe(
                 map((list) => (list || []).map((item) => new CharacterModel(item)))
             );
+    }
+
+    private getQuerySearchParams(querySearch: string): Record<string, string | string[]> {
+        return querySearch ? {q: querySearch} : null;
     }
 }

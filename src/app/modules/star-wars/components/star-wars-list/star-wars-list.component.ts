@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ListViewInterface} from '../../../../common/shared/model/interfaces/list-view.interface';
 import {StarWarsService} from '../../store/star-wars.service';
-import {Observable} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {CharacterModel} from '../../model/models/character.model';
+import {switchMap} from 'rxjs/operators';
 
 @Component({
     selector: 'sl-star-wars-list',
@@ -12,6 +13,7 @@ import {CharacterModel} from '../../model/models/character.model';
 export class StarWarsListComponent implements OnInit {
     public columns: ListViewInterface[];
     public characters$: Observable<CharacterModel[]>;
+    public querySearch$: BehaviorSubject<string> = new BehaviorSubject('');
 
     constructor(private service: StarWarsService) {
     }
@@ -19,7 +21,18 @@ export class StarWarsListComponent implements OnInit {
     public ngOnInit(): void {
         this.getColumns();
 
-        this.characters$ = this.service.list();
+        this.characters$ = this.getFilteredList$();
+    }
+
+    public handleSearch(querySearch: string) {
+        console.log(querySearch);
+        this.querySearch$.next(querySearch);
+    }
+
+    private getFilteredList$(): Observable<CharacterModel[]> {
+        return this.querySearch$.pipe(
+            switchMap((querySearch) => this.service.list(querySearch))
+        );
     }
 
     private getColumns(): void {
