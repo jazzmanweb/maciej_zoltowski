@@ -8,7 +8,7 @@ import {PaginationModel} from '../../model/models/pagination.model';
     styleUrls: ['./list-view.component.scss']
 })
 export class ListViewComponent<T = any[]> {
-    @Input() public columns: ListViewInterface[];
+    @Input() public columns: ListViewInterface<T>[];
     @Input() public data: T[] = [];
     @Input() public pagination: PaginationModel = new PaginationModel();
     @Output() public onSearch: EventEmitter<string> = new EventEmitter();

@@ -12,7 +12,7 @@
     </thead>
     <tbody>
     <tr *ngFor="let row of data; let idx = index">
-        <th scope="row">{{idx + 1}}</th>
+        <th scope="row">{{((pagination.page - 1) * pagination.limit) + idx + 1}}</th>
         <td *ngFor="let column of columns">
             {{row[column.field]}}
         </td>
