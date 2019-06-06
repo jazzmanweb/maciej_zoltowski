@@ -28,8 +28,4 @@ export class ListViewSearchComponent implements OnInit, OnDestroy {
     public ngOnDestroy() {
         this.subscribe = false;
     }
-
-    public handleKeyUp(event) {
-        console.log(event);
-    }
 }
