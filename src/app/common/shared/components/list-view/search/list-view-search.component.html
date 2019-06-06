@@ -1,10 +1,22 @@
 <div class="form-group">
-    <label for="searchInput" class="sr-only">Search</label>
-    <input
-        type="text"
-        class="form-control"
-        id="searchInput"
-        placeholder="Search..."
-        [formControl]="formControl"
-    >
+    <div class="input-group mb-3">
+        <label for="searchInput" class="sr-only">Search</label>
+        <input
+            type="text"
+            class="form-control"
+            id="searchInput"
+            placeholder="Search..."
+            [formControl]="formControl"
+            aria-label="Search" aria-describedby="clearSearch"
+        >
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary"
+                    type="button"
+                    id="clearSearch"
+                    (click)="handleClear()"
+            >
+                Clear
+            </button>
+        </div>
+    </div>
 </div>

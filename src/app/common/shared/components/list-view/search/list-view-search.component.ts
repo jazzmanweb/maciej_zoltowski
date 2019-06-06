@@ -12,9 +12,13 @@ export class ListViewSearchComponent implements OnInit, OnDestroy {
     public formControl: FormControl;
     private subscribe: boolean = false;
 
-    public ngOnInit() {
+    public ngOnInit(): void {
         this.subscribe = true;
         this.formControl = new FormControl('');
+        this.subscribeToFormControl();
+    }
+
+    public subscribeToFormControl(): void {
         this.formControl.valueChanges
             .pipe(
                 debounceTime(200),
@@ -25,7 +29,11 @@ export class ListViewSearchComponent implements OnInit, OnDestroy {
             });
     }
 
-    public ngOnDestroy() {
+    public ngOnDestroy(): void {
         this.subscribe = false;
+    }
+
+    public handleClear(): void {
+        this.formControl.reset('');
     }
 }
