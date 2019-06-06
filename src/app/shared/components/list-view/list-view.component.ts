@@ -1,12 +1,17 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {ListViewInterface} from '../../model/interfaces/list-view.interface';
 
 @Component({
-  selector: 'sl-list-view',
-  templateUrl: './list-view.component.html',
-  styleUrls: ['./list-view.component.scss']
+    selector: 'sl-list-view',
+    templateUrl: './list-view.component.html',
+    styleUrls: ['./list-view.component.scss']
 })
 export class ListViewComponent implements OnInit {
-  constructor() {}
+    @Input() public columns: ListViewInterface[];
 
-  ngOnInit() {}
+    constructor() {
+    }
+
+    ngOnInit() {
+    }
 }
