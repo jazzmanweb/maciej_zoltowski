@@ -1,11 +1,13 @@
 import {NgModule} from '@angular/core';
 import {StarWarsListComponent} from './components/star-wars-list/star-wars-list.component';
-import {ListViewComponent} from '../../list-view/list-view.component';
+import {SharedModule} from '../../shared/shared.module';
 
 @NgModule({
     declarations: [
-        ListViewComponent,
         StarWarsListComponent,
+    ],
+    imports: [
+        SharedModule,
     ]
 })
 export class StarWarsModule {

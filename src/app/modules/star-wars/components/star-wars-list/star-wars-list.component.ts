@@ -1,10 +1,15 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
-    selector: 'sl-star-wars-list',
-    templateUrl: './star-wars-list.component.html',
+  selector: 'sl-star-wars-list',
+  templateUrl: './star-wars-list.component.html',
+  styleUrls: ['./star-wars-list.component.scss']
 })
+export class StarWarsListComponent implements OnInit {
 
-export class StarWarsListComponent {
+  constructor() { }
+
+  ngOnInit() {
+  }
 
 }
