@@ -10,6 +10,7 @@ import {PaginationModel} from '../../model/models/pagination.model';
 export class ListViewComponent<T = any[]> {
     @Input() public columns: ListViewInterface<T>[];
     @Input() public data: T[] = [];
+    @Input() public dataKey: keyof T;
     @Input() public pagination: PaginationModel = new PaginationModel();
     @Output() public onCreate: EventEmitter<void> = new EventEmitter();
     @Output() public onSearch: EventEmitter<string> = new EventEmitter();

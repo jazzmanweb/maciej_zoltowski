@@ -5,6 +5,7 @@ import {catchError, map} from 'rxjs/operators';
 import {removeFirstCharIfExist, removeLastCharIfExist} from '../../utils/string.utils';
 import {HttpGetRequestInterface} from '../model/interfaces/http-get-request.interface';
 import {HttpGetPaginationModel} from '../model/models/http-get-pagination.model';
+import {HttpPostRequestInterface} from '../model/interfaces/http-post-request.interface';
 
 @Injectable()
 export class RequestService {
@@ -32,6 +33,38 @@ export class RequestService {
                     body: response.body,
                     total: response.headers.get('X-Total-Count'),
                 }))
+            );
+    }
+
+    public post<T>(request: HttpPostRequestInterface<T>): Observable<T> {
+        return this.http.post<T>(this.getUrl(request.path),
+            request.body,
+            {
+                params: request.params,
+            })
+            .pipe(
+                catchError(this.handleError),
+            );
+    }
+
+    public put<T>(request: HttpPostRequestInterface<T>): Observable<T> {
+        return this.http.put<T>(this.getUrl(request.path),
+            request.body,
+            {
+                params: request.params,
+            })
+            .pipe(
+                catchError(this.handleError),
+            );
+    }
+
+    public delete<T>(request: HttpGetRequestInterface): Observable<T> {
+        return this.http.delete<T>(this.getUrl(request.path),
+            {
+                params: request.params,
+            })
+            .pipe(
+                catchError(this.handleError),
             );
     }
 

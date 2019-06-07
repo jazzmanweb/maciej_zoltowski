@@ -171,6 +171,20 @@
       "species": "Droid",
       "gender": "n/a",
       "homeworld": ""
+    },
+    {
+      "id": 21,
+      "name": "Poe Dameron",
+      "species": "Human",
+      "gender": "male",
+      "homeworld": null
+    },
+    {
+      "id": 23,
+      "name": "Finn",
+      "species": "Human",
+      "gender": "male",
+      "homeworld": null
     }
   ]
 }

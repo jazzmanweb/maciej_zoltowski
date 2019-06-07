@@ -1,19 +1,20 @@
 <div class="form-group"
+     *ngIf="form?.get(field)"
      [formGroup]="form"
 >
-    <label [for]="field">
+    <label for="{{field}}">
         {{label}}
-        <small *ngIf="required">*</small>
+        <small class="text-primary" *ngIf="required">*</small>
     </label>
     <input type="text"
-           [id]="field"
-           [formControlName]="field"
+           #input
            class="form-control"
-           [class.is-invalid]="form?.get(field)?.errors"
-           aria-describedby="characterN"
+           id="{{field}}"
+           [formControlName]="field"
+           [class.is-invalid]="showErrors && form.get(field).errors"
            [placeholder]="placeholder"
     >
-    <div *ngIf="form?.get(field)?.errors" class="is-invalid">
-        <div *ngIf="form?.get(field)?.errors.required">This field is required.</div>
+    <div *ngIf="showErrors && form.get(field).errors" class="is-invalid">
+        <div *ngIf="form.get(field).errors.required">This field is required.</div>
     </div>
 </div>

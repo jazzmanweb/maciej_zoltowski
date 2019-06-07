@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core';
 import {AbstractFormControlComponent} from '../abstract-form-control.component';
 
 @Component({
@@ -7,7 +7,13 @@ import {AbstractFormControlComponent} from '../abstract-form-control.component';
     styleUrls: ['./form-text.component.scss']
 })
 export class FormTextComponent extends AbstractFormControlComponent {
+    @ViewChild('input') public input: ElementRef;
+
     constructor() {
         super();
+    }
+
+    public handleFocus() {
+        this.input.nativeElement.focus();
     }
 }

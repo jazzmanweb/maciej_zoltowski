@@ -17,10 +17,13 @@ export class ListViewTableComponent<T = any[]> {
     }
 
     @Input() public data: T[] = [];
+    @Input() public dataKey: keyof T;
     @Input() public pagination: PaginationModel = new PaginationModel();
     @Output() public onPaginate: EventEmitter<number> = new EventEmitter();
     @Output() public onEdit: EventEmitter<T> = new EventEmitter();
     @Output() public onRemove: EventEmitter<T> = new EventEmitter();
+
+    public confirmRemove: {[key: number]: boolean} = {};
 
     public handlePaginate(page: number): void {
         this.onPaginate.emit(page);
@@ -30,7 +33,16 @@ export class ListViewTableComponent<T = any[]> {
         this.onEdit.emit(row);
     }
 
-    public handleRemove(row: T): void {
+    public handleRemove(id: number): void {
+        this.confirmRemove[id] = true;
+    }
+
+    public handleConfirmRemove(row: T, id: number): void {
+        this.confirmRemove[id] = false;
         this.onRemove.emit(row);
+    }
+
+    public handleCancelRemove(id: number): void {
+        this.confirmRemove[id] = false;
     }
 }

@@ -57,7 +57,11 @@ export class StarWarsListComponent implements OnInit {
         if (!item || !item.id) {
             return;
         }
-        this.router.navigate(['star-wars', item.id, 'edit']);
+        this.service.remove(item.id)
+            .subscribe(
+                (value) => this.handlePaginate(1),
+                (error) => this.handlePaginate(1),
+            );
     }
 
     public handleSearch(querySearch: string) {

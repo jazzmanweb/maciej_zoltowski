@@ -3,6 +3,7 @@
 <sl-list-view
     [columns]="columns"
     [data]="characters$ | async"
+    [dataKey]="'id'"
     [pagination]="pagination$ | async"
     (onSearch)="handleSearch($event)"
     (onPaginate)="handlePaginate($event)"
