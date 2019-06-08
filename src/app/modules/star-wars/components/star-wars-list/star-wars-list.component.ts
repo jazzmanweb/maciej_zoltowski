@@ -8,6 +8,7 @@ import {HttpGetPaginationModel} from '../../../../common/http/model/models/http-
 import {combineLatest} from 'rxjs/internal/observable/combineLatest';
 import {PaginationModel} from '../../../../common/shared/model/models/pagination.model';
 import {ActivatedRoute, Router} from '@angular/router';
+import {ListViewOrderInterface} from '../../../../common/shared/model/interfaces/list-view-order.interface';
 
 @Component({
     selector: 'sl-star-wars-list',
@@ -20,6 +21,7 @@ export class StarWarsListComponent implements OnInit {
     public pagination$: Observable<PaginationModel>;
     public querySearch$: BehaviorSubject<string> = new BehaviorSubject('');
     public page$: BehaviorSubject<number> = new BehaviorSubject(1);
+    public sort$: BehaviorSubject<ListViewOrderInterface> = new BehaviorSubject(null);
     private paginationLimit: number = 10;
 
     constructor(private service: StarWarsService,
@@ -42,7 +44,7 @@ export class StarWarsListComponent implements OnInit {
         })));
     }
 
-    public handleCreate() {
+    public handleCreate(): void {
         this.router.navigate(['star-wars', 'create']);
     }
 
@@ -64,21 +66,26 @@ export class StarWarsListComponent implements OnInit {
             );
     }
 
-    public handleSearch(querySearch: string) {
+    public handleSearch(querySearch: string): void {
         this.querySearch$.next(querySearch);
     }
 
-    public handlePaginate(page: number) {
+    public handlePaginate(page: number): void {
         this.page$.next(page);
+    }
+
+    public handleSort(sort: ListViewOrderInterface): void {
+        this.sort$.next(sort);
     }
 
     private getListWithPage(): Observable<HttpGetPaginationModel<CharacterModel[]>> {
         return combineLatest(
             this.querySearch$,
             this.page$,
+            this.sort$,
         ).pipe(
-            switchMap(([querySearch, page]) => {
-                return this.service.list(querySearch, page, this.paginationLimit);
+            switchMap(([querySearch, page, sort]) => {
+                return this.service.list(querySearch, page, this.paginationLimit, sort);
             })
         );
     }

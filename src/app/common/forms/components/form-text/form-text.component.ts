@@ -13,7 +13,7 @@ export class FormTextComponent extends AbstractFormControlComponent {
         super();
     }
 
-    public handleFocus() {
+    public handleFocus(): void {
         this.input.nativeElement.focus();
     }
 }

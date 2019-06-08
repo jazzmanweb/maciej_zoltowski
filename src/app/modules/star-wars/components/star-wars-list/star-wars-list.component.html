@@ -1,13 +1,20 @@
 <h1>List View</h1>
 
 <sl-list-view
+    *ngIf="characters$ | async as characters; else connection_error"
     [columns]="columns"
-    [data]="characters$ | async"
+    [data]="characters"
     [dataKey]="'id'"
     [pagination]="pagination$ | async"
+    [sort]="sort$ | async"
     (onSearch)="handleSearch($event)"
     (onPaginate)="handlePaginate($event)"
+    (onSort)="handleSort($event)"
     (onCreate)="handleCreate()"
     (onEdit)="handleEdit($event)"
     (onRemove)="handleRemove($event)"
 ></sl-list-view>
+
+<ng-container #connection_error>
+    <div class="p-3 mb-2 bg-danger text-white">Database connection error</div>
+</ng-container>

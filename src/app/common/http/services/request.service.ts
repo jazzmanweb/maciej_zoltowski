@@ -74,7 +74,7 @@ export class RequestService {
             + removeFirstCharIfExist(path, '/');
     }
 
-    private handleError(error: HttpErrorResponse) {
+    private handleError(error: HttpErrorResponse): Observable<never> {
         console.error(error);
         return throwError('Something went wrong');
     }

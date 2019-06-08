@@ -25,7 +25,7 @@ export class StarWarsEditComponent implements OnInit, OnDestroy {
     public processing: boolean = false;
     public onSuccessNavigateToList: boolean = true;
     public showErrors: boolean;
-    public subscribe: boolean;
+    private subscribe: boolean;
 
     constructor(private service: StarWarsService,
                 private formBuilder: FormBuilder,
@@ -33,7 +33,7 @@ export class StarWarsEditComponent implements OnInit, OnDestroy {
                 private route: ActivatedRoute) {
     }
 
-    public ngOnInit() {
+    public ngOnInit(): void {
         this.subscribe = true;
         this.createForm();
         this.getItem();
@@ -44,7 +44,7 @@ export class StarWarsEditComponent implements OnInit, OnDestroy {
         this.subscribe = false;
     }
 
-    public createForm() {
+    public createForm(): void {
         this.form = this.formBuilder.group({
             id: [null],
             name: ['', Validators.required],
@@ -89,8 +89,7 @@ export class StarWarsEditComponent implements OnInit, OnDestroy {
             );
     }
 
-    public handleSubmit() {
-        console.log(this.form);
+    public handleSubmit(): void {
         this.processing = true;
         if (this.form.valid) {
             this.service.save(new CharacterModel(this.form.value))
@@ -109,12 +108,13 @@ export class StarWarsEditComponent implements OnInit, OnDestroy {
                     }
                 );
         } else {
+            this.processing = false;
             this.showErrors = true;
             this.focusField = this.getFirstInvalid(['name', 'species', 'gender', 'homeworld']);
         }
     }
 
-    public getFirstInvalid(fields: string[]) {
+    public getFirstInvalid(fields: string[]): string {
         return (fields || []).reduce((first, current) => {
             if (first) {
                 return first;

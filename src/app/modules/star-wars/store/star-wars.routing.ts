@@ -1,8 +1,9 @@
 export namespace STAR_WARS {
     export namespace CHARACTERS {
-        export const CRUD: string = '/characters';
+        export const LIST = () => `/characters`;
+        export const ITEM = (id) => `/characters/${id}`;
     }
     export namespace SPECIES {
-        export const CRUD: string = '/species';
+        export const LIST = () => `/species`;
     }
 }

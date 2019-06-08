@@ -19,7 +19,9 @@
     [data]="data"
     [dataKey]="dataKey"
     [pagination]="pagination"
+    [sort]="sort"
     (onPaginate)="handlePaginate($event)"
+    (onSort)="handleSort($event)"
     (onEdit)="handleEdit($event)"
     (onRemove)="handleRemove($event)"
 ></sl-list-view-table>

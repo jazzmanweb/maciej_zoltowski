@@ -178,13 +178,6 @@
       "species": "Human",
       "gender": "male",
       "homeworld": null
-    },
-    {
-      "id": 23,
-      "name": "Finn",
-      "species": "Human",
-      "gender": "male",
-      "homeworld": null
     }
   ]
 }

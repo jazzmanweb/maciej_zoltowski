@@ -8,7 +8,9 @@ export abstract class AbstractFormControlComponent {
     @Input() public placeholder: string;
     @Input() public showErrors: boolean;
     @Input() public required: boolean;
-    @Input() public set focusField(focusField: string) {
+
+    @Input()
+    public set focusField(focusField: string) {
         if (this.field === focusField) {
             this.handleFocus();
         }
