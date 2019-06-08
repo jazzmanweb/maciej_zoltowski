@@ -1,6 +1,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ListViewSearchComponent} from './list-view-search.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 describe('ListViewSearchComponent', () => {
     let component: ListViewSearchComponent;
@@ -8,7 +9,13 @@ describe('ListViewSearchComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ListViewSearchComponent]
+            declarations: [
+                ListViewSearchComponent,
+            ],
+            imports: [
+                ReactiveFormsModule,
+                FormsModule,
+            ],
         })
             .compileComponents();
     }));

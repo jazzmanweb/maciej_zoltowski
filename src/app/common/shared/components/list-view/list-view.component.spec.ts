@@ -1,6 +1,10 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ListViewComponent} from './list-view.component';
+import {ListViewSearchComponent} from './search/list-view-search.component';
+import {ListViewTableComponent} from './table/list-view-table.component';
+import {ListViewPaginationComponent} from './table/pagination/list-view-pagination.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 describe('ListViewComponent', () => {
     let component: ListViewComponent;
@@ -8,7 +12,16 @@ describe('ListViewComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ListViewComponent]
+            declarations: [
+                ListViewComponent,
+                ListViewSearchComponent,
+                ListViewTableComponent,
+                ListViewPaginationComponent,
+            ],
+            imports: [
+                ReactiveFormsModule,
+                FormsModule,
+            ],
         })
             .compileComponents();
     }));

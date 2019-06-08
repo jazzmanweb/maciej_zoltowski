@@ -1,6 +1,11 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {StarWarsListComponent} from './star-wars-list.component';
+import {StarWarsService} from '../../store/star-wars.service';
+import {HttpModule} from '../../../../common/http/http.module';
+import {RouterTestingModule} from '@angular/router/testing';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {SharedModule} from '../../../../common/shared/shared.module';
 
 describe('StarWarsListComponent', () => {
     let component: StarWarsListComponent;
@@ -8,7 +13,19 @@ describe('StarWarsListComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [StarWarsListComponent]
+            declarations: [
+                StarWarsListComponent,
+            ],
+            imports: [
+                RouterTestingModule,
+                ReactiveFormsModule,
+                FormsModule,
+                HttpModule.forRoot('http://localhost:3000'),
+                SharedModule,
+            ],
+            providers: [
+                StarWarsService,
+            ],
         })
             .compileComponents();
     }));

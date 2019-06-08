@@ -8,7 +8,9 @@ import {FormRadioComponent} from './components/form-radio/form-radio.component';
 const COMPONENTS = {
     INTERNAL: [],
     EXTERNAL: [
-        FormTextComponent, FormSelectComponent, FormRadioComponent,
+        FormTextComponent,
+        FormSelectComponent,
+        FormRadioComponent,
     ]
 };
 
