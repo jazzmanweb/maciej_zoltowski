@@ -2,6 +2,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {FormRadioComponent} from './form-radio.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {OptionModel} from '../../model/model/option.model';
 
 describe('FormRadioComponent', () => {
     let component: FormRadioComponent;
@@ -28,5 +29,16 @@ describe('FormRadioComponent', () => {
 
     it('should create', () => {
         expect(component).toBeTruthy();
+    });
+
+    it('should get/set input options', () => {
+        const input: OptionModel<string>[] = [
+            new OptionModel({label: 'A', value: 'B'}),
+            new OptionModel({label: 'C', value: 'D'}),
+            new OptionModel({label: 'E', value: 'F'}),
+        ];
+        component.options = [...input];
+
+        expect(component.options).toEqual(input);
     });
 });

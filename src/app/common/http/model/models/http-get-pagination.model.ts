@@ -10,7 +10,7 @@ export class HttpGetPaginationModel<T> implements HttpGetPaginationInterface<T> 
         this.body = options.body || null;
     }
 
-    private parseInt(value: number | string | string[]): number {
+    public parseInt(value: number | string | string[]): number {
         return typeof value === 'number'
             ? value
             : typeof value === 'string'

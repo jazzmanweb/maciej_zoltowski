@@ -11,7 +11,7 @@ describe('ListViewModel<T>', () => {
     const falsyObjects = [undefined, null];
     describe('should return class instance like for literal {}', () => {
         falsyObjects.forEach((item) => {
-            it(typeof item === 'string' ? '\'' + item + '\'' : item, () => {
+            it(`${typeof item === 'string' ? '\'' + item + '\'' : item}`, () => {
                 const result = new ListViewModel(item);
                 const expected = new ListViewModel({});
                 expect(result).toEqual(expected);
