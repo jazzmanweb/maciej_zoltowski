@@ -10,7 +10,7 @@
         <th scope="col">Actions</th>
     </tr>
     </thead>
-    <tbody>
+    <tbody *ngIf="pagination && data">
     <tr *ngFor="let row of data; let idx = index">
         <th scope="row">{{((pagination.page - 1) * pagination.limit) + idx + 1}}</th>
         <td *ngFor="let column of columns">
@@ -18,11 +18,33 @@
         </td>
         <td>
             <div class="btn-group btn-group-sm" role="group" aria-label="Actions">
-                <button type="button" class="btn btn-secondary">
+                <button type="button"
+                        class="btn btn-secondary"
+                        *ngIf="!confirmRemove[row[dataKey]]"
+                        (click)="handleEdit(row)"
+                >
                     <i class="fa fa-pencil" aria-hidden="true"></i> Edit
                 </button>
-                <button type="button" class="btn btn-danger">
+                <button type="button"
+                        class="btn btn-danger"
+                        *ngIf="!confirmRemove[row[dataKey]]"
+                        (click)="handleRemove(row[dataKey])"
+                >
                     <i class="fa fa-trash-o" aria-hidden="true"></i> Remove
+                </button>
+                <button type="button"
+                        class="btn btn-danger"
+                        *ngIf="confirmRemove[row[dataKey]]"
+                        (click)="handleConfirmRemove(row, row[dataKey])"
+                >
+                    <i class="fa fa-trash-o" aria-hidden="true"></i> Confirm
+                </button>
+                <button type="button"
+                        class="btn btn-warning"
+                        *ngIf="confirmRemove[row[dataKey]]"
+                        (click)="handleCancelRemove(row[dataKey])"
+                >
+                    <i class="fa fa-close" aria-hidden="true"></i> Cancel
                 </button>
             </div>
         </td>

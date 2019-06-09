@@ -1,0 +1,24 @@
+<div class="form-group"
+     *ngIf="form?.get(field)"
+     [formGroup]="form"
+>
+    <label for="{{field}}">
+        {{label}}
+        <small class="text-primary" *ngIf="required">*</small>
+    </label>
+    <select class="form-control"
+            #select
+            id="{{field}}"
+            [formControlName]="field"
+            [class.is-invalid]="showErrors && form.get(field).errors"
+    >
+        <option *ngFor="let option of options"
+                [ngValue]="option.value"
+        >
+            {{option.label}}
+        </option>
+    </select>
+    <div *ngIf="showErrors && form.get(field).errors" class="is-invalid">
+        <div *ngIf="form.get(field).errors.required">This field is required.</div>
+    </div>
+</div>

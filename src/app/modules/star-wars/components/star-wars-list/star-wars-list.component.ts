@@ -7,6 +7,7 @@ import {map, switchMap} from 'rxjs/operators';
 import {HttpGetPaginationModel} from '../../../../common/http/model/models/http-get-pagination.model';
 import {combineLatest} from 'rxjs/internal/observable/combineLatest';
 import {PaginationModel} from '../../../../common/shared/model/models/pagination.model';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
     selector: 'sl-star-wars-list',
@@ -21,7 +22,9 @@ export class StarWarsListComponent implements OnInit {
     public page$: BehaviorSubject<number> = new BehaviorSubject(1);
     private paginationLimit: number = 10;
 
-    constructor(private service: StarWarsService) {
+    constructor(private service: StarWarsService,
+                private router: Router,
+                private route: ActivatedRoute) {
     }
 
     public ngOnInit(): void {
@@ -37,6 +40,28 @@ export class StarWarsListComponent implements OnInit {
             page,
             limit: this.paginationLimit,
         })));
+    }
+
+    public handleCreate() {
+        this.router.navigate(['star-wars', 'create']);
+    }
+
+    public handleEdit(item: CharacterModel): void {
+        if (!item || !item.id) {
+            return;
+        }
+        this.router.navigate(['star-wars', item.id, 'edit']);
+    }
+
+    public handleRemove(item: CharacterModel): void {
+        if (!item || !item.id) {
+            return;
+        }
+        this.service.remove(item.id)
+            .subscribe(
+                (value) => this.handlePaginate(1),
+                (error) => this.handlePaginate(1),
+            );
     }
 
     public handleSearch(querySearch: string) {

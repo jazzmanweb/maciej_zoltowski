@@ -1,0 +1,27 @@
+<div class="form-group"
+     *ngIf="form?.get(field)"
+     [formGroup]="form"
+>
+    <label [for]="field">
+        {{label}}
+        <small class="text-primary" *ngIf="required">*</small>
+    </label>
+
+    <div class="form-check" *ngFor="let option of options; let idx = index">
+        <input type="radio"
+               class="form-check-input"
+               id="{{field + idx}}"
+               [formControlName]="field"
+               [name]="field"
+               [value]="option.value"
+               [class.is-invalid]="showErrors && form?.get(field)?.errors"
+        >
+        <label class="form-check-label"
+               for="{{field + idx}}">
+            {{option.label}}
+        </label>
+    </div>
+    <div *ngIf="showErrors && form?.get(field)?.errors" class="is-invalid">
+        <div *ngIf="form?.get(field)?.errors.required">This field is required.</div>
+    </div>
+</div>

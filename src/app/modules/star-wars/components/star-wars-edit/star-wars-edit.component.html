@@ -1,0 +1,53 @@
+<h1>{{(character$ | async)?.id ? 'Edit' : 'Add'}} Character</h1>
+
+<form [formGroup]="form"
+      *ngIf="form && (species$ | async) as species"
+      (ngSubmit)="handleSubmit()"
+>
+    <sl-form-text
+        [form]="form"
+        [field]="'name'"
+        [label]="'Name'"
+        [placeholder]="'Enter name'"
+        [focusField]="focusField"
+        [showErrors]="showErrors"
+        [required]="true"
+    ></sl-form-text>
+
+    <sl-form-select
+        [form]="form"
+        [field]="'species'"
+        [label]="'Species'"
+        [placeholder]="'Select species'"
+        [options]="species"
+        [focusField]="focusField"
+        [showErrors]="showErrors"
+        [required]="true"
+    ></sl-form-select>
+
+    <sl-form-radio
+        [form]="form"
+        [field]="'gender'"
+        [label]="'Gender'"
+        [options]="genders"
+        [focusField]="focusField"
+        [showErrors]="showErrors"
+        [required]="true"
+    ></sl-form-radio>
+
+    <sl-form-text
+        [form]="form"
+        [field]="'homeworld'"
+        [label]="'Homeworld'"
+        [placeholder]="'Enter Homeworld'"
+        [focusField]="focusField"
+        [showErrors]="showErrors"
+    ></sl-form-text>
+
+    <button type="submit"
+            class="btn btn-primary"
+            [disabled]="processing"
+    >
+        Submit
+    </button>
+</form>
