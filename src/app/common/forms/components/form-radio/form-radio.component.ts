@@ -15,6 +15,6 @@ export class FormRadioComponent extends AbstractFormControlComponent {
         super();
     }
 
-    public handleFocus() {
+    public handleFocus(): void {
     }
 }

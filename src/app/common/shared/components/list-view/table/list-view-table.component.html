@@ -1,19 +1,35 @@
 <table class="table table-bordered table-hover">
     <thead class="thead-light">
     <tr>
-        <th scope="col">Id</th>
+        <th scope="col"
+            (click)="handleSort()"
+        >
+            Id
+        </th>
         <th *ngFor="let column of columns"
             scope="col"
+            (click)="handleSort(column)"
         >
             {{column.header}}
+            <i class="fa"
+               aria-hidden="true"
+               [class.fa-sort]="sort?.field !== column.field"
+               [class.fa-sort-up]="sort?.field === column.field && sort.order === 'asc'"
+               [class.fa-sort-down]="sort?.field === column.field && sort.order === 'desc'"
+            ></i>
         </th>
-        <th scope="col">Actions</th>
+        <th scope="col"
+            (click)="handleSort()"
+        >
+            Actions
+        </th>
     </tr>
     </thead>
     <tbody *ngIf="pagination && data">
     <tr *ngFor="let row of data; let idx = index">
         <th scope="row">{{((pagination.page - 1) * pagination.limit) + idx + 1}}</th>
-        <td *ngFor="let column of columns">
+        <td *ngFor="let column of columns"
+        >
             {{row[column.field]}}
         </td>
         <td>

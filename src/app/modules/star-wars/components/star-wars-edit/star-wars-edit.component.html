@@ -1,7 +1,7 @@
 <h1>{{(character$ | async)?.id ? 'Edit' : 'Add'}} Character</h1>
 
 <form [formGroup]="form"
-      *ngIf="form && (species$ | async) as species"
+      *ngIf="form && (species$ | async) as species; else connection_error"
       (ngSubmit)="handleSubmit()"
 >
     <sl-form-text
@@ -51,3 +51,7 @@
         Submit
     </button>
 </form>
+
+<ng-container #connection_error>
+    <div class="p-3 mb-2 bg-danger text-white">Database connection error</div>
+</ng-container>

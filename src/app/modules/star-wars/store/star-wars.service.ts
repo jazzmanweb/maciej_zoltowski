@@ -6,19 +6,21 @@ import {CharacterInterface} from '../model/interfaces/character.interface';
 import {STAR_WARS} from './star-wars.routing';
 import {filter, map} from 'rxjs/operators';
 import {HttpGetPaginationModel} from '../../../common/http/model/models/http-get-pagination.model';
-import {tap} from 'rxjs/internal/operators/tap';
+import {ListViewOrderInterface} from '../../../common/shared/model/interfaces/list-view-order.interface';
 
 @Injectable()
 export class StarWarsService {
     constructor(private request: RequestService) {
     }
 
-    public list(querySearch?: string, page?: number, limit?: number): Observable<HttpGetPaginationModel<CharacterModel[]>> {
+    // tslint:disable-next-line:max-line-length
+    public list(querySearch?: string, page?: number, limit?: number, sort?: ListViewOrderInterface): Observable<HttpGetPaginationModel<CharacterModel[]>> {
         return this.request.getPage<CharacterInterface[]>({
-            path: STAR_WARS.CHARACTERS.CRUD,
+            path: STAR_WARS.CHARACTERS.LIST(),
             params: {
                 ...this.getQuerySearchParam(querySearch),
                 ...this.getPaginationParams(page, limit),
+                ...this.getSortParams(sort),
             },
         })
             .pipe(
@@ -32,7 +34,7 @@ export class StarWarsService {
 
     public item(id: number): Observable<CharacterModel> {
         return this.request.get<CharacterModel>({
-            path: STAR_WARS.CHARACTERS.CRUD + '/' + id,
+            path: STAR_WARS.CHARACTERS.ITEM(id),
         })
             .pipe(
                 filter((response) => !!response),
@@ -54,41 +56,28 @@ export class StarWarsService {
 
     public create(body: CharacterModel): Observable<CharacterModel> {
         return this.request.post<CharacterModel>({
-            path: STAR_WARS.CHARACTERS.CRUD,
+            path: STAR_WARS.CHARACTERS.LIST(),
             body,
-        })
-            .pipe(
-                tap((response) => console.log(response)),
-            );
+        });
     }
 
     public update(body: CharacterModel): Observable<CharacterModel> {
         return this.request.put<CharacterModel>({
-            path: STAR_WARS.CHARACTERS.CRUD + '/' + body.id,
+            path: STAR_WARS.CHARACTERS.ITEM(body.id),
             body,
-        })
-            .pipe(
-                tap((response) => console.log(response)),
-            );
+        });
     }
 
     public remove(id: number): Observable<number> {
         return this.request.delete<number>({
-            path: STAR_WARS.CHARACTERS.CRUD + '/' + id,
-        })
-            .pipe(
-                tap((response) => console.log(response)),
-            );
+            path: STAR_WARS.CHARACTERS.ITEM(id),
+        });
     }
 
     public speciesList(): Observable<string[]> {
         return this.request.get<string[]>({
-            path: STAR_WARS.SPECIES.CRUD,
+            path: STAR_WARS.SPECIES.LIST(),
         });
-    }
-
-    private getId(id: number): Record<string, string | string[]> {
-        return id ? {id: '' + id} : null;
     }
 
     private getQuerySearchParam(querySearch: string): Record<string, string | string[]> {
@@ -97,5 +86,9 @@ export class StarWarsService {
 
     private getPaginationParams(page: number, limit: number): Record<string, string | string[]> {
         return page > 0 && limit > 0 ? {_page: '' + page, _limit: '' + limit} : null;
+    }
+
+    private getSortParams(sort: ListViewOrderInterface): Record<string, string | string[]> {
+        return sort ? {_sort: sort.field, _order: sort.order} : null;
     }
 }

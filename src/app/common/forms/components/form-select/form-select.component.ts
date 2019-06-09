@@ -3,9 +3,9 @@ import {AbstractFormControlComponent} from '../abstract-form-control.component';
 import {OptionModel} from '../../model/model/option.model';
 
 @Component({
-  selector: 'sl-form-select',
-  templateUrl: './form-select.component.html',
-  styleUrls: ['./form-select.component.scss']
+    selector: 'sl-form-select',
+    templateUrl: './form-select.component.html',
+    styleUrls: ['./form-select.component.scss']
 })
 export class FormSelectComponent extends AbstractFormControlComponent {
     @ViewChild('select') public select: ElementRef;
@@ -15,7 +15,7 @@ export class FormSelectComponent extends AbstractFormControlComponent {
         super();
     }
 
-    public handleFocus() {
+    public handleFocus(): void {
         this.select.nativeElement.focus();
     }
 }
