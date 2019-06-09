@@ -27,10 +27,12 @@ describe('sonalake-task-angular App', () => {
         });
 
         it('should start page from 1', () => {
+            const prevButton = element(by.css('sl-star-wars-list sl-list-view-pagination li:first-child'));
+
             const idCell = element(by.css('sl-star-wars-list tbody tr:nth-child(1) th:first-child')).getText();
             const activePage = element(by.css('sl-star-wars-list sl-list-view-pagination li.active button')).getText();
 
-            expect(element(by.buttonText('Previous')).getAttribute('class')).toContain('disabled');
+            expect(prevButton.getAttribute('class')).toContain('disabled');
             expect(idCell).toEqual('1');
             expect(activePage).toContain('1');
             expect(activePage).toContain('current');
