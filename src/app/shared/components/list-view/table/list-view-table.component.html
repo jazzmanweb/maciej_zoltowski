@@ -1,0 +1,33 @@
+<table class="table table-bordered table-hover">
+    <thead class="thead-light">
+    <tr>
+        <th scope="col">Id</th>
+        <th *ngFor="let column of columns"
+            scope="col"
+        >
+            {{column.header}}
+        </th>
+        <th scope="col">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let row of data; let idx = index">
+        <th scope="row">{{idx + 1}}</th>
+        <td *ngFor="let column of columns">
+            row[column.field]
+        </td>
+        <td>
+            <div class="btn-group btn-group-sm" role="group" aria-label="Actions">
+                <button type="button" class="btn btn-secondary">
+                    <i class="fa fa-pencil" aria-hidden="true"></i> Edit
+                </button>
+                <button type="button" class="btn btn-danger">
+                    <i class="fa fa-trash-o" aria-hidden="true"></i> Remove
+                </button>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<sl-list-view-pagination></sl-list-view-pagination>
