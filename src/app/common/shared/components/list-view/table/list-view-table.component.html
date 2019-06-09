@@ -69,6 +69,7 @@
 </table>
 
 <sl-list-view-pagination
+    *ngIf="data?.length"
     [pagination]="pagination"
     (onPaginate)="handlePaginate($event)"
 ></sl-list-view-pagination>

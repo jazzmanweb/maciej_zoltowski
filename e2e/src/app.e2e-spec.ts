@@ -1,7 +1,7 @@
 import {AppPage} from './app.po';
 import {by, element} from 'protractor';
 
-describe('sonalake-task-angular App', () => {
+describe('sonalake-task-angular Maciej Żółtowski', () => {
     let page: AppPage;
 
     beforeEach(() => {
@@ -18,34 +18,68 @@ describe('sonalake-task-angular App', () => {
             expect(page.getStarWarsListHeader()).toEqual('Characters List');
         });
 
-        it('should has prev button', () => {
-            expect(element(by.buttonText('Previous'))).toBeTruthy();
+        describe('Pagination', () => {
+            it('should has prev button', () => {
+                expect(element(by.buttonText('Previous'))).toBeTruthy();
+            });
+
+            it('should has next button', () => {
+                expect(element(by.buttonText('Next'))).toBeTruthy();
+            });
+
+            it('should start page from 1', () => {
+                const prevButton = element(by.css('sl-star-wars-list sl-list-view-pagination li:first-child'));
+
+                const idCell = element(by.css('sl-star-wars-list tbody tr:nth-child(1) th:first-child')).getText();
+                const activePage = element(by.css('sl-star-wars-list sl-list-view-pagination li.active button')).getText();
+
+                expect(prevButton.getAttribute('class')).toContain('disabled');
+                expect(idCell).toEqual('1');
+                expect(activePage).toContain('1');
+                expect(activePage).toContain('current');
+            });
+
+            it('should paginate be set to 10', () => {
+                const nextButton = element(by.buttonText('Next')).click();
+                const idCell = element(by.css('sl-star-wars-list tbody tr:nth-child(1) th:first-child')).getText();
+                const activePage = element(by.css('sl-star-wars-list sl-list-view-pagination li.active button')).getText();
+
+                expect(idCell).toEqual('11');
+                expect(activePage).toContain('2');
+                expect(activePage).toContain('current');
+            });
         });
 
-        it('should has next button', () => {
-            expect(element(by.buttonText('Next'))).toBeTruthy();
-        });
+        describe('Search', () => {
+            let search;
+            beforeEach(() => {
+                search = element(by.css('sl-star-wars-list input#searchInput'));
+            });
 
-        it('should start page from 1', () => {
-            const prevButton = element(by.css('sl-star-wars-list sl-list-view-pagination li:first-child'));
+            it('should has Search Field', () => {
+                expect(search).toBeTruthy();
+            });
 
-            const idCell = element(by.css('sl-star-wars-list tbody tr:nth-child(1) th:first-child')).getText();
-            const activePage = element(by.css('sl-star-wars-list sl-list-view-pagination li.active button')).getText();
+            it('should search input be enabled', () => {
+                search.sendKeys('Someone');
+                expect(search.getAttribute('value')).toEqual('Someone');
+            });
 
-            expect(prevButton.getAttribute('class')).toContain('disabled');
-            expect(idCell).toEqual('1');
-            expect(activePage).toContain('1');
-            expect(activePage).toContain('current');
-        });
+            // If there is no map
+            it('should not know where is The Map', () => {
+                search.sendKeys('The Map');
+                const tbody = element(by.css('sl-star-wars-list tbody')).getText();
 
-        it('should paginate be set to 10', () => {
-            const nextButton = element(by.buttonText('Next')).click();
-            const idCell = element(by.css('sl-star-wars-list tbody tr:nth-child(1) th:first-child')).getText();
-            const activePage = element(by.css('sl-star-wars-list sl-list-view-pagination li.active button')).getText();
+                expect(tbody).toEqual('');
+            });
 
-            expect(idCell).toEqual('11');
-            expect(activePage).toContain('2');
-            expect(activePage).toContain('current');
+            // If Luke is in database
+            it('should know where is Luke', () => {
+                search.sendKeys('Luke');
+                const idCell = element(by.css('sl-star-wars-list tbody tr:nth-child(1) td')).getText();
+
+                expect(idCell).toEqual('Luke Skywalker');
+            });
         });
     });
 
