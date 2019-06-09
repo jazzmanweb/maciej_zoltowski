@@ -1,0 +1,20 @@
+<div class="form-group"
+     *ngIf="form?.get(field) as control"
+     [formGroup]="form"
+>
+    <label for="{{field}}">
+        {{label}}
+        <small class="text-primary" *ngIf="required">*</small>
+    </label>
+    <input type="text"
+           #input
+           class="form-control"
+           id="{{field}}"
+           [formControlName]="field"
+           [class.is-invalid]="control.errors && (showErrors || control.touched)"
+           [placeholder]="placeholder"
+    >
+    <div *ngIf="control.errors && (showErrors || control.touched)" class="text-danger">
+        <div *ngIf="control.errors.required">This field is required.</div>
+    </div>
+</div>

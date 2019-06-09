@@ -1,0 +1,27 @@
+<div class="row">
+    <div class="col-sm-6">
+        <sl-list-view-search
+            (onSearch)="handleSearch($event)"
+        ></sl-list-view-search>
+    </div>
+    <div class="col-sm-6 text-sm-right"
+    >
+        <button class="btn btn-primary mb-3 add-new"
+                (click)="handleCreate()"
+        >
+            Add New
+        </button>
+    </div>
+</div>
+
+<sl-list-view-table
+    [columns]="columns"
+    [data]="data"
+    [dataKey]="dataKey"
+    [pagination]="pagination"
+    [sort]="sort"
+    (onPaginate)="handlePaginate($event)"
+    (onSort)="handleSort($event)"
+    (onEdit)="handleEdit($event)"
+    (onRemove)="handleRemove($event)"
+></sl-list-view-table>
