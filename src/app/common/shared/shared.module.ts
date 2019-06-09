@@ -4,6 +4,7 @@ import {ListViewTableComponent} from './components/list-view/table/list-view-tab
 import {ListViewSearchComponent} from './components/list-view/search/list-view-search.component';
 import {ListViewPaginationComponent} from './components/list-view/table/pagination/list-view-pagination.component';
 import {CommonModule} from '@angular/common';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 const COMPONENTS = {
     INTERNAL: [
@@ -16,9 +17,15 @@ const COMPONENTS = {
     ]
 };
 
+const MODULES = [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+];
+
 @NgModule({
     imports: [
-        CommonModule,
+        MODULES
     ],
     declarations: [
         COMPONENTS.EXTERNAL,
@@ -26,6 +33,7 @@ const COMPONENTS = {
     ],
     exports: [
         COMPONENTS.EXTERNAL,
+        MODULES
     ]
 })
 export class SharedModule {

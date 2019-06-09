@@ -14,7 +14,7 @@
     <tr *ngFor="let row of data; let idx = index">
         <th scope="row">{{idx + 1}}</th>
         <td *ngFor="let column of columns">
-            row[column.field]
+            {{row[column.field]}}
         </td>
         <td>
             <div class="btn-group btn-group-sm" role="group" aria-label="Actions">
