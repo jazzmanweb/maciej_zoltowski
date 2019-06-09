@@ -1,15 +1,15 @@
 import {ListViewInterface} from '../interfaces/list-view.interface';
 
-export class ListViewModel implements ListViewInterface {
+export class ListViewModel<T> implements ListViewInterface<T> {
     public header: string;
-    public field: string;
+    public field: keyof T;
     public show: boolean;
     public sortable: boolean;
 
-    constructor(options?: Partial<ListViewInterface>) {
+    constructor(options?: Partial<ListViewInterface<T>>) {
         options = options || {};
         this.header = options.header || '';
-        this.field = options.field || '';
+        this.field = options.field || null;
         this.show = options.show !== false;
         this.sortable = options.sortable === true;
     }
