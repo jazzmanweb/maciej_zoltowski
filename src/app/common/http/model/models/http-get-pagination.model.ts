@@ -13,7 +13,7 @@ export class HttpGetPaginationModel<T> implements HttpGetPaginationInterface<T> 
     public parseInt(value: number | string | string[]): number {
         return typeof value === 'number'
             ? value
-            : typeof value === 'string'
+            : typeof value === 'string' && value
                 ? parseInt(value, 10)
                 : 0;
     }
