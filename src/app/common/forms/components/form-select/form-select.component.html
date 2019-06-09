@@ -1,5 +1,5 @@
 <div class="form-group"
-     *ngIf="form?.get(field)"
+     *ngIf="form?.get(field) as control"
      [formGroup]="form"
 >
     <label for="{{field}}">
@@ -10,7 +10,7 @@
             #select
             id="{{field}}"
             [formControlName]="field"
-            [class.is-invalid]="showErrors && form.get(field).errors"
+            [class.is-invalid]="control.errors && (showErrors || control.touched)"
     >
         <option *ngFor="let option of options"
                 [ngValue]="option.value"
@@ -18,7 +18,7 @@
             {{option.label}}
         </option>
     </select>
-    <div *ngIf="showErrors && form.get(field).errors" class="is-invalid">
-        <div *ngIf="form.get(field).errors.required">This field is required.</div>
+    <div *ngIf="control.errors && (showErrors || control.touched)" class="text-danger">
+        <div *ngIf="control.errors.required">This field is required.</div>
     </div>
 </div>
