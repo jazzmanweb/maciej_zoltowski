@@ -8,7 +8,9 @@ describe('ListViewPaginationComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ListViewPaginationComponent]
+            declarations: [
+                ListViewPaginationComponent,
+            ],
         })
             .compileComponents();
     }));

@@ -12,7 +12,7 @@ export class PaginationModel implements PaginationInterface {
         this.page = options.page || null;
         this.limit = options.limit || null;
         this.total = options.total || null;
-        this.isFirst = options.isFirst || options.page === 1;
-        this.isLast = options.isLast || options.page === Math.ceil(this.total / (this.limit || 1));
+        this.isFirst = options.page === 1;
+        this.isLast = options.page === Math.ceil(this.total / (this.limit || 1));
     }
 }
