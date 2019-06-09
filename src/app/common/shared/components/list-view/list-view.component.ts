@@ -8,7 +8,7 @@ import {ListViewOrderInterface} from '../../model/interfaces/list-view-order.int
     templateUrl: './list-view.component.html',
     styleUrls: ['./list-view.component.scss']
 })
-export class ListViewComponent<T = any> {
+export class ListViewComponent<T extends object> {
     @Input() public columns: ListViewInterface<T>[];
     @Input() public data: T[] = [];
     @Input() public dataKey: keyof T;

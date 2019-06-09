@@ -6,9 +6,9 @@ import {ListViewTableComponent} from './table/list-view-table.component';
 import {ListViewPaginationComponent} from './table/pagination/list-view-pagination.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
-describe('ListViewComponent', () => {
-    let component: ListViewComponent;
-    let fixture: ComponentFixture<ListViewComponent>;
+describe('ListViewComponent<T>', () => {
+    let component: ListViewComponent<object>;
+    let fixture: ComponentFixture<ListViewComponent<object>>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
